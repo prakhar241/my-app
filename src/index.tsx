@@ -1,31 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './pages/App';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import ErrorPage from './pages/ErrorPage';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter, Link} from "react-router-dom";
+import { Router} from "react-router-dom";
 import {Route, Switch} from "react-router";
+import createHistory from "history/createBrowserHistory";
+import ReactGA from "react-ga";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import ErrorPage from "./pages/ErrorPage";
+
+const history = createHistory();
+ReactGA.initialize("UA-166003117-1");
+history.listen(location => {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname)
+});
 
 const routes = (
-    <BrowserRouter>
-        <div>
-            <Switch>
-                <Route exact path="/" component={App}>
-                    <App/>
-                </Route>
-                <Route path="/aboutus" component={About}>
-                    <About/>
-                </Route>
-                <Route path="/contactme" component={Contact}>
-                    <Contact/>
-                </Route>
-                <Route component={ErrorPage}/>
-            </Switch>
-        </div>
-    </BrowserRouter>
+    <Router history={history}>
+        <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/aboutus" component={About}/>
+            <Route path="/contactme" component={Contact}/>
+            <Route component={ErrorPage}/>
+        </Switch>
+    </Router>
 );
 
 ReactDOM.render(routes, document.getElementById('root'));

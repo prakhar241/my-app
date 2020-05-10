@@ -9,7 +9,7 @@ const Home: React.FC = () => {
             <Header/>
             <body className="App-header">
             <p>
-                This is app home-page.
+                This is home-page. Added analytics. Currently routes are loading javascripts.
             </p>
             </body>
             <Footer />
